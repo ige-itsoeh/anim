@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semicírculo en Movimiento</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let x = 100; // Posición inicial del semicírculo
+    let y = canvas.height / 2; // Centrado verticalmente
+    let radius = 50; // Radio del semicírculo
+    let speed = 2; // Velocidad de movimiento
+    let direction = 1; // Dirección inicial (1 = derecha, -1 = izquierda)
+
+    function drawSemicircle() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpia el lienzo
+
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI, false); // Dibuja un semicírculo
+      ctx.fillStyle = 'blue';
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function updatePosition() {
+      x += speed * direction;
+
+      // Cambia de dirección si el semicírculo alcanza los bordes
+      if (x + radius > canvas.width || x - radius < 0) {
+        direction *= -1;
+      }
+    }
+
+    function animate() {
+      drawSemicircle();
+      updatePosition();
+      requestAnimationFrame(animate); // Llama a la función de animación
+    }
+    animate(); // Inicia la animación
+  </script>
+<button onclick="location.href='https://www.facebook.com'">Animaciones<br></button>
+<a href="sCirGiro.html">Giro 1 <br></a>
+<a href="sCirGiro2.html">Giro2 <br></a>
+<a href="metodoani2.html"> animacion 2 <br></a>
+<a href="metodo-animado.html">metodo-animado <br></a>
+</body>
+</html>
