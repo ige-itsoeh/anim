@@ -1,89 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Presentación con Efecto de Ondas</title>
+  <meta charset="UTF-8">
+  <title>Fondo con Efecto Ripple</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
+      box-sizing: border-box;
       overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
     }
 
-    .ripple-container {
-      position: fixed;
+    body {
+      background: url('images/imagen-cuad.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    #ripple-background {
+      position: absolute;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
     }
 
-    .content {
-      position: relative;
-      z-index: 1;
-      padding: 60px;
-      background-color: rgba(0, 0, 0, 0.5);
-      max-width: 800px;
-      margin: 80px auto;
-      border-radius: 12px;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    details {
-      margin: 20px 0;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 8px;
-    }
-
-    summary {
-      font-weight: bold;
-      cursor: pointer;
+    .contenido {
+      width: 100%;
+      height: 100vh;
+      background: url(./images/imagen-cuad.jpg) no-repeat center;
+      background-size: cover;
     }
   </style>
 </head>
 <body>
-  <div class="ripple-container" id="ripple-bg"></div>
 
-  <div class="content">
-    <h1>Definición de Variables y Operacionalización</h1>
+  <div id="ripple-background"></div>
 
-    <details>
-      <summary>¿Qué es una variable?</summary>
-      <p>Una variable es una característica que puede adoptar diferentes valores y que se mide u observa en una investigación.</p>
-    </details>
-
-    <details>
-      <summary>¿Qué es la operacionalización?</summary>
-      <p>Es el proceso de definir cómo se medirá una variable en términos observables y cuantificables.</p>
-    </details>
+  <div class="contenido">
+    <h1>Presentación con Fondo Ripple</h1>
+    <p>Definición de variables y operacionalización</p>
   </div>
 
-  <!-- Librerías necesarias -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/SaboSuke/ripple-effect.js@latest/dist/ripple-effect.min.js"></script>
+  <!-- jQuery y plugin ripple -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/sirxemic/jquery.ripples@master/dist/jquery.ripples-min.js"></script>
 
   <script>
-    new RippleEffect({
-      parent: document.getElementById('ripple-bg'),
-      texture: 'images/imagen-cuad.jpg',
-      intensity: 1,
-      strength: 2,
-      area: 6,
-      waveSpeed: 0.015,
-      hover: true,
-      speedIn: 1.2,
-      speedOut: 1.0,
-      easing: 'Expo.easeOut'
+    $(document).ready(function(){
+        $(".contenido").ripples({
+        resolution: 512,
+        dropRadius: 20,
+        perturbance: 0.04,
+        });
     });
   </script>
+
 </body>
 </html>
+
 
