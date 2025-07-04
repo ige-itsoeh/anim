@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Presentación con Efecto de Ondas</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+    }
+
+    .ripple-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 60px;
+      background-color: rgba(0, 0, 0, 0.5);
+      max-width: 800px;
+      margin: 80px auto;
+      border-radius: 12px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    details {
+      margin: 20px 0;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="ripple-container" id="ripple-bg"></div>
+
+  <div class="content">
+    <h1>Definición de Variables y Operacionalización</h1>
+
+    <details>
+      <summary>¿Qué es una variable?</summary>
+      <p>Una variable es una característica que puede adoptar diferentes valores y que se mide u observa en una investigación.</p>
+    </details>
+
+    <details>
+      <summary>¿Qué es la operacionalización?</summary>
+      <p>Es el proceso de definir cómo se medirá una variable en términos observables y cuantificables.</p>
+    </details>
+  </div>
+
+  <!-- Librerías necesarias -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/SaboSuke/ripple-effect.js@latest/dist/ripple-effect.min.js"></script>
+
+  <script>
+    new RippleEffect({
+      parent: document.getElementById('ripple-bg'),
+      texture: 'images/imagen-cuad.jpg',
+      intensity: 1,
+      strength: 2,
+      area: 6,
+      waveSpeed: 0.015,
+      hover: true,
+      speedIn: 1.2,
+      speedOut: 1.0,
+      easing: 'Expo.easeOut'
+    });
+  </script>
+</body>
+</html>
+
