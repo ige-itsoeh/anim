@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>1.1.3 Marco Teórico - Estilo Bauhaus con Olas</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Futura', 'Arial', sans-serif;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: opacity 0.8s ease-in-out;
+      opacity: 0;
+      z-index: 0;
+    }
+
+    .slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .slide h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    .slide p {
+      font-size: 1.5em;
+      max-width: 800px;
+    }
+
+    .slide:nth-child(1) { background: #f2f2f2; color: #000; }
+    .slide:nth-child(2) { background: #e63946; color: #fff; }
+    .slide:nth-child(3) { background: #f1c40f; color: #000; }
+    .slide:nth-child(4) { background: #1d3557; color: #fff; }
+    .slide:nth-child(5) { background: #2a9d8f; color: #fff; }
+    .slide:nth-child(6) { background: #000; color: #fff; }
+    .slide:nth-child(7) { background: #ffffff; color: #000; }
+
+    .nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .nav button {
+      width: 20px;
+      height: 20px;
+      border: none;
+      border-radius: 50%;
+      background: #ccc;
+      cursor: pointer;
+    }
+
+    .nav button.active {
+      background: #000;
+    }
+
+    .wave {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .wave.show {
+      opacity: 1;
+    }
+
+    .wave svg {
+      width: 100%;
+      height: 100%;
+      animation: waveMove 1s ease-in-out;
+    }
+
+    @keyframes waveMove {
+      0% { transform: translateY(100%); }
+      50% { transform: translateY(0%); }
+      100% { transform: translateY(-100%); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="slide active">
+  <h1>1. Marco Teórico</h1>
+  <p><br><br>Corazón conceptual de tu investigación. <br><br>Un puente entre teoría - problema.</p>
+</div>
+<div class="slide">
+  <h1>2. Fundamentos Clave</h1>
+  <p><br><br>Define las teorías, modelos y enfoques. <br><br>¿Qué autores respaldan tu visión?</p>
+</div>
+<div class="slide">
+  <h1>3. Estado del Arte</h1>
+  <p><br><br>¿Qué se ha investigado antes? <br><br>¿Qué vacíos existen? <br><br>Aquí se justifica tu aporte.</p>
+</div>
+<div class="slide">
+  <h1>4. Conceptos Relevantes</h1>
+  <p><br><br>Define con precisión los términos clave. <br><br>La claridad conceptual es poder.</p>
+</div>
+<div class="slide">
+  <h1>5. Relación con el Problema</h1>
+  <p><br><br>Conecta la teoría con tu planteamiento. <br><br>¿Cómo fundamenta tu hipótesis?</p>
+</div>
+<div class="slide">
+  <h1>6. Coherencia y Profundidad</h1>
+  <p><br><br>Un buen marco teórico no es extenso, <br><br>es preciso, <br><br>relevante y bien articulado.</p>
+</div>
+<div class="slide">
+  <h1>7. Conclusión</h1>
+  <p><br><br>El marco teórico no solo informa: <br><br>orienta, delimita y <br><br>fortalece tu investigación.</p>
+</div>
+
+<div class="nav" id="nav">
+  <button onclick="goToSlide(0)" class="active"></button>
+  <button onclick="goToSlide(1)"></button>
+  <button onclick="goToSlide(2)"></button>
+  <button onclick="goToSlide(3)"></button>
+  <button onclick="goToSlide(4)"></button>
+  <button onclick="goToSlide(5)"></button>
+  <button onclick="goToSlide(6)"></button>
+</div>
+
+<div class="wave" id="wave">
+  <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+    <path fill="#ffffff" fill-opacity="1" d="M0,160L60,154.7C120,149,240,139,360,160C480,181,600,235,720,240C840,245,960,203,1080,181.3C1200,160,1320,160,1380,160L1440,160L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+  </svg>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const buttons = document.querySelectorAll('.nav button');
+  const wave = document.getElementById('wave');
+  let current = 0;
+
+  function goToSlide(index) {
+    if (index === current) return;
+
+    wave.classList.add('show');
+
+    setTimeout(() => {
+      slides[current].classList.remove('active');
+      buttons[current].classList.remove('active');
+      slides[index].classList.add('active');
+      buttons[index].classList.add('active');
+      current = index;
+    }, 500);
+
+    setTimeout(() => {
+      wave.classList.remove('show');
+    }, 1000);
+  }
+</script>
+
+</body>
+</html>
