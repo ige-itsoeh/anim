@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Three.js Tornado</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: #000; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+  // Escena, cámara y renderizador
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+  camera.position.z = 50;
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // Crear partículas del tornado
+  const particleCount = 2000;
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(particleCount * 3);
+
+  for (let i = 0; i < particleCount; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = Math.random() * 5;
+    const height = Math.random() * 50;
+
+    positions[i * 3] = Math.cos(angle) * radius;
+    positions[i * 3 + 1] = height;
+    positions[i * 3 + 2] = Math.sin(angle) * radius;
+  }
+
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const material = new THREE.PointsMaterial({
+    color: 0x88ccff,
+    size: 0.3,
+    transparent: true,
+    opacity: 0.8
+  });
+
+  const particles = new THREE.Points(geometry, material);
+  scene.add(particles);
+
+  // Animación del tornado
+  function animate() {
+    requestAnimationFrame(animate);
+
+    const positions = particles.geometry.attributes.position.array;
+    const time = Date.now() * 0.001;
+
+    for (let i = 0; i < particleCount; i++) {
+      const index = i * 3;
+      const x = positions[index];
+      const y = positions[index + 1];
+      const z = positions[index + 2];
+
+      const angle = Math.atan2(z, x) + 0.05;
+      const radius = Math.sqrt(x * x + z * z) + 0.01;
+
+      positions[index] = Math.cos(angle) * radius;
+      positions[index + 2] = Math.sin(angle) * radius;
+      positions[index + 1] = (y + 0.1) % 50; // Loop vertical
+    }
+
+    particles.geometry.attributes.position.needsUpdate = true;
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  // Ajustar tamaño al redimensionar
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+</script>
+</body>
+</html>
