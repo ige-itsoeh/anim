@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Árbol Conceptual Drilldown</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f0f0;
+      padding: 40px;
+    }
+
+    .tree {
+      list-style-type: none;
+      padding-left: 20px;
+    }
+
+    .tree li {
+      position: relative;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    .tree li::before {
+      content: "";
+      position: absolute;
+      top: 12px;
+      left: -12px;
+      border-left: 2px solid #e53935;
+      border-bottom: 2px solid #e53935;
+      width: 12px;
+      height: 12px;
+    }
+
+    .tree ul {
+      display: none;
+      margin-left: 20px;
+      padding-left: 10px;
+      border-left: 2px dashed #ccc;
+    }
+
+    .tree li.open > ul {
+      display: block;
+    }
+
+    .tree li span {
+      padding: 6px 10px;
+      background: #e53935;
+      color: white;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .tree li span:hover {
+      background: #c62828;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Árbol Conceptual: Metodología de la Investigación</h2>
+
+  <ul class="tree">
+    <li>
+      <span>Variables</span>
+      <ul>
+        <li>
+          <span>Definición</span>
+          <ul>
+            <li><span>Concepto teórico</span></li>
+            <li><span>Dimensiones</span></li>
+          </ul>
+        </li>
+        <li>
+          <span>Tipos</span>
+          <ul>
+            <li><span>Independiente</span></li>
+            <li><span>Dependiente</span></li>
+            <li><span>Interviniente</span></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span>Operacionalización</span>
+      <ul>
+        <li><span>Indicadores</span></li>
+        <li><span>Instrumentos de medición</span></li>
+        <li><span>Escalas</span></li>
+      </ul>
+    </li>
+  </ul>
+
+  <script>
+    document.querySelectorAll('.tree li span').forEach(span => {
+      span.addEventListener('click', () => {
+        const parent = span.parentElement;
+        parent.classList.toggle('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
