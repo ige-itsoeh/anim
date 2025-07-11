@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Presentación Fuentes de Consulta</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, sans-serif;
+      background: black;
+      color: white;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.8s ease-in-out;
+    }
+    .active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      z-index: 10;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.3em;
+    }
+    p {
+      font-size: 1.2em;
+      max-width: 70%;
+      text-align: center;
+    }
+    .floating-objective {
+      position: absolute;
+      background-color: #ffffff20;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.9em;
+      animation: float 10s infinite linear;
+    }
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(100px, -50px); }
+      50% { transform: translate(-100px, 100px); }
+      75% { transform: translate(50px, -80px); }
+      100% { transform: translate(0, 0); }
+    }
+    .controls {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+    }
+    .btn {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      margin: 0 10px;
+      background: #ffffff10;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background: #ffffff30;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide active">
+    <h1>Tipos de Fuentes</h1>
+    <p>Ejemplos: libros, entrevistas, artículos.</p>
+    <div class="floating-objective" style="top:40%; left:25%;">Primarias</div>
+    <div class="floating-objective" style="top:60%; left:50%;">Secundarias</div>
+    <div class="floating-objective" style="top:30%; left:70%;">Terciarias</div>
+  </div>
+
+  <div class="slide">
+    <h1>Fuentes Académicas</h1>
+    <p>Bases como Scopus, PubMed, RedALyC y revistas indexadas.<br>Tesis universitarias incluidas.</p>
+    <div class="floating-objective" style="top:45%; left:30%;">Scopus</div>
+    <div class="floating-objective" style="top:55%; left:60%;">PubMed</div>
+    <div class="floating-objective" style="top:65%; left:40%;">RedALyC</div>
+  </div>
+
+  <div class="slide">
+    <h1>Fuentes Digitales</h1>
+    <p>Recursos confiables como Google Scholar, SciELO y bases institucionales.</p>
+    <div class="floating-objective" style="top:40%; left:20%;">Google Scholar</div>
+    <div class="floating-objective" style="top:50%; left:70%;">SciELO</div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="prevBtn">Anterior</button>
+    <button class="btn" id="nextBtn">Siguiente</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const slides = document.querySelectorAll('.slide');
+      let current = 0;
+
+      function showSlide(index) {
+        // Asegura que el índice esté dentro de los límites
+        if (index < 0) {
+          current = slides.length - 1; // Vuelve al último si es menor que 0
+        } else if (index >= slides.length) {
+          current = 0; // Vuelve al primero si excede el límite
+        } else {
+          current = index;
+        }
+        slides.forEach((s) => s.classList.remove('active'));
+        slides[current].classList.add('active');
+      }
+
+      function nextSlide() {
+        showSlide(current + 1);
+      }
+
+      function prevSlide() {
+        showSlide(current - 1);
+      }
+
+      // Obtener los botones por su ID
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      // Asignar los event listeners
+      prevBtn.addEventListener('click', prevSlide);
+      nextBtn.addEventListener('click', nextSlide);
+    });
+  </script>
+</body>
+</html>
